@@ -1,7 +1,7 @@
 Nama: Clarissa Indriana P
 NPM: 2306211660
 Kelas: PBP B
-Tautan aplikasi PWS: https://pbp.cs.ui.ac.id/web/project/clarissa.indriana/kedaibukukopi 
+Tautan aplikasi PWS: http://clarissa-indriana-kedaibukukopi.pbp.cs.ui.ac.id 
 
 SOAL
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
