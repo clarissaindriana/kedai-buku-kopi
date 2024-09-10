@@ -3,11 +3,13 @@ NPM: 2306211660
 Kelas: PBP B
 Tautan aplikasi PWS: http://clarissa-indriana-kedaibukukopi.pbp.cs.ui.ac.id 
 
+
 SOAL
+
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
 Mengetahui bahwa: 
 main = direktori aplikasi
-rumai_kedai = direktori project
+kedai_buku_kopi = direktori project
 
 1. Membuat sebuah proyek Django baru bernama kedai_buku_kopi yang sebelumnya berada di direktori utama kedai-buku-kopi dan terhubung ke direktori github
 2. Membuat direktori aplikasi bernama main
