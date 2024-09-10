@@ -21,7 +21,8 @@ rumai_kedai = direktori project
 10. Proyek sekarang dapat diakses melalui internet
 
 Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-![bagan mtv](/Users/clarissaindriana/Desktop/bagan_mtv.PNG)
+Membuat request dari internet -> webserver environment -> run django -> extract argument dari request -> diteruskan ke views.py <-> views akan mencari data terkatit di models.py -> mengembalikan data ke dalam template html untuk ditampilkan ke pada user atas respon dari request.
+![bagan mtv](bagan_mtv.PNG)
 
 Jelaskan fungsi git dalam pengembangan perangkat lunak!
 Git digunakan untuk beberapa hal, seperti:
