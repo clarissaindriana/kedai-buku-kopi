@@ -55,7 +55,7 @@ ROOT_URLCONF = "kedai_buku_kopi.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -116,3 +116,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://http://clarissa-indriana-kedaibukukopi.pbp.cs.ui.ac.id", "https://http://clarissa-indriana-kedaibukukopi.pbp.cs.ui.ac.id"]
