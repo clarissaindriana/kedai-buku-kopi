@@ -116,13 +116,13 @@ csrf_token adalah nilai unik yang dihasilkan secara acak dan dimasukkan ke dalam
 
 ### POSTMAN
 **XML**
-![xml](pictures/XML.PNG)
+![XML](pictures/XML.PNG)
 
 **JSON**
 ![JSON](pictures/JSON.PNG)
 
 **XML by ID**
-![xml](pictures/XML_by_ID.PNG)
+![XML_by_ID](pictures/XML_by_ID.PNG)
 
 **JSON by ID**
-![xml](pictures/JSON_by_ID.PNG)
+![JSON_by_ID](pictures/JSON_by_ID.PNG)
