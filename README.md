@@ -29,7 +29,7 @@ kedai_buku_kopi = direktori project
 
 **Bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya.**
 Membuat request dari internet -> webserver environment -> run django -> extract argument dari request -> diteruskan ke views.py <-> views akan mencari data terkatit di models.py -> mengembalikan data ke dalam template html untuk ditampilkan ke pada user atas respon dari request.
-![bagan_mtv](pictures/bagan_mtv.PNG)
+![bagan_mtv](https://github.com/user-attachments/assets/680e029c-f078-4f5e-b691-82ab33ac95e3)
 
 **Fungsi git dalam pengembangan perangkat lunak!**
 Git digunakan untuk beberapa hal, seperti:
