@@ -233,7 +233,7 @@ PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 
 ### SOAL
-1. Apa perbedaan antara HttpResponseRedirect() dan redirect() 
+**Apa perbedaan antara HttpResponseRedirect() dan redirect()** 
 HttpResponseRedirect() maupun redirect() digunakan untuk mengarahkan pengguna ke URL lain
 
 HttpResponseRedirect()
@@ -243,7 +243,7 @@ HttpResponseRedirect()
 redirect()
 - Dapat menerima beberapa jenis argumen (seperti URL, nama view, atau objek model) dan mengembalikannya sebagai respons redirect. Django akan membuat URL yang benar secara di balik layar tanpa kita harus menuliskannya secara eksplisit di parameter fungsi
 
-2. Jelaskan cara kerja penghubungan model Product dengan User! 
+**Jelaskan cara kerja penghubungan model Product dengan User!**
 a. Tambahkan User pada model Product yang sudah dibuat
 
 user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -265,7 +265,7 @@ product_entries = Product.objects.filter(user=request.user)
 
 - Product.objects.filter(user=request.user) akan mengambil semua produk yang dimiliki oleh pengguna yang sedang login. 
 
-3. Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+**Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.**
 
 Authentication adalah proses memverifikasi identitas pengguna (misalnya melalui login).
 Authorization adalah proses menentukan izin atau akses pengguna terhadap fitur tertentu setelah mereka terautentikasi.
@@ -298,14 +298,14 @@ def show_main(request):
 
 Menggunakan @login_required untuk mengizinkan hanya pengguna yang login yang mengakses halaman tertentu
 
-4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
-Login: 
+**Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?**
+- Login: 
 Ketika pengguna berhasil login, Django membuat session untuk pengguna tersebut. Session ini adalah data sementara yang disimpan oleh server dan terhubung dengan pengguna. Django mengirimkan cookie ke browser pengguna yang berisi ID session. Cookie ini biasanya bernama sessionid dan digunakan untuk mengidentifikasi session di sisi server. Setiap kali pengguna melakukan permintaan (request) setelah login, cookie ini akan dikirimkan ke server bersama permintaan tersebut. Django kemudian menggunakan ID session dari cookie untuk mencari data session di server yang berisi informasi pengguna yang login (misalnya, request.user), sehingga sistem tahu siapa pengguna tersebut.
 
-Kegunaan lain dari Cookies:
+- Kegunaan lain dari Cookies:
 Menyimpan preferensi pengguna, melacak aktivitas pengguna, login otomatis
 
-Apakah semua cookies aman digunakan?
+- Apakah semua cookies aman digunakan?
 Cookies Biasa (Non-Secure Cookies):
 Cookies biasa dikirim melalui protokol HTTP yang tidak terenkripsi, sehingga rentan terhadap serangan man-in-the-middle (MITM)
 
