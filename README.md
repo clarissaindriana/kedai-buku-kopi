@@ -312,3 +312,139 @@ Cookies biasa dikirim melalui protokol HTTP yang tidak terenkripsi, sehingga ren
 Secure Cookies:
 Secure Cookies adalah cookies yang hanya dikirimkan melalui koneksi HTTPS (yang terenkripsi). Dengan menggunakan atribut Secure, cookies ini tidak akan dikirimkan melalui HTTP yang tidak aman, sehingga lebih terlindungi dari serangan MITM.
 
+## Tugas 5
+### Implementasi Desain Web Menggunakan HTML dan CSS3 & Metode Update dan Delete pada Data
+**Menambahkan Tailwind ke Aplikasi**
+1. script CDN (Content Delivery Network) dari Tailwind untuk diletakkan di dalam html template Django (base.html), script cdn tailwind di bagian head.
+
+**Menambahkan Fitur Edit Product pada Aplikasi**
+1. Tambahkan import pada file views.py
+from django.shortcuts import .., reverse
+from django.http import .., HttpResponseRedirect
+
+2. Buka views.py yang ada pada subdirektori main, dan buat fungsi baru edit_mood yang menerima parameter request dan id 
+
+3. Buat berkas HTML baru dengan nama edit_product.html pada subdirektori main/templates
+
+4. Buka urls.py yang berada pada direktori main dan import fungsi edit_product dan tambahkan path url ke dalam urlpatterns untuk mengakses fungsi yang sudah diimpor tadi
+
+5. Buka main.html yang berada pada subdirektori main/templates. Tambahkan potongan kode agar terlihat tombol edit pada setiap baris tabel.
+{% url 'main:edit_product' product_entry.pk %} digunakan untuk membangun URL dengan menambahkan primary key (pk) dari objek product_entry sebagai parameter. Parameter ini akan diteruskan ke fungsi view edit_product, yang membutuhkan nilai id untuk mengetahui entri mana yang akan diedit.
+
+**Menambahkan Fitur Hapus Mood pada Aplikasi**
+1. Buat fungsi baru dengan nama delete_product yang menerima parameter request dan id pada views.py
+
+2. Buka urls.py yang berada pada direktori main dan import fungsi delete_product dan tambahkan path url ke dalam urlpatterns untuk mengakses fungsi yang sudah diimpor tadi
+
+3. Bukalah berkas main.html yang ada pada folder main/templates dan ubah kode yang sudah ada agar terdapat tombol hapus untuk setiap produk.
+
+**Menambahkan Navigation Bar pada Aplikasi**
+Navigation Bar (navbar) adalah elemen yang biasanya digunakan untuk menavigasi berbagai halaman atau fitur dalam sebuah aplikasi web. Navbar biasanya ditempatkan di bagian atas halaman dan berisi tautan atau tombol yang mengarah ke halaman-halaman lain dalam aplikasi.
+
+1. Buat berkas HTML baru dengan nama navbar.html pada folder templates/ di root directory. Isi dari navbar.html
+
+2. Tautkan navbar tersebut ke dalam main.html, create_product_entry.html, dan edit_product.html yang berada di subdirektori main/templates/ dengan menggunakan tags include
+
+**Konfigurasi Static Files pada Aplikasi**
+1. Pada settings.py, tambahkan middleware WhiteNoise.
+2. Pada settings.py, pastikan variabel STATIC_ROOT, STATICFILES_DIRS, dan STATIC_URL dikonfigurasikan
+
+**Menambahkan Styles pada Aplikasi dengan Tailwind dan External CSS**
+Styling menggunakan Tailwind dan CSS
+
+
+### SOAL
+**Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!**
+
+Priorities (highest order wins)
+1. Origin & Importance
+2. Selector Specificity
+3. Order of Appearance
+4. Initial & Inherited Properties (default values)
+
+CSS selectors 
+1. Inline styles (anything inside a style tag) 
+2. ID selectors
+3. Classes selector
+4. Element selector
+
+**Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!**
+Responsive design adalah pendekatan dalam desain web yang memungkinkan tampilan dan antarmuka aplikasi web beradaptasi secara otomatis dengan berbagai ukuran layar dan perangkat. Konsep ini menjadi sangat penting karena beberapa alasan:
+1. Pengalaman Pengguna yang Konsisten
+2. Peningkatan Penggunaan Mobile
+3. Efisiensi Pengelolaan
+
+Contoh Aplikasi yang Sudah Menerapkan Responsive Design:
+1. Twitter
+2. YouTube
+
+Contoh Aplikasi yang Belum Menerapkan Responsive Design:
+1. Instagram untuk iPad
+2. Shopee untuk iPad
+
+**Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!**
+Margin, border, dan padding adalah tiga elemen utama dalam model kotak (box model) pada CSS yang digunakan untuk mengatur ruang dan jarak di sekitar elemen HTML
+
+1. Margin adalah ruang di luar border elemen yang memisahkan elemen tersebut dari elemen lainnya. Margin mempengaruhi jarak antara elemen satu dengan elemen lain, tetapi tidak mempengaruhi isi (konten) di dalam elemen tersebut.
+
+div {
+  margin: 20px; 
+}
+
+p {
+  margin-top: 10px; 
+  margin-right: 15px; 
+  margin-bottom: 10px; 
+  margin-left: 5px; 
+}
+
+2. Border adalah garis yang mengelilingi elemen, tepat di luar padding dan di dalam margin. Border bisa memiliki warna, ketebalan, dan gaya (solid, dashed, dotted, dll.).
+
+div {
+  border: 2px solid black; 
+}
+
+p {
+  border-width: 1px; 
+  border-style: dashed; 
+  border-color: blue; 
+}
+
+3. Padding adalah ruang di dalam border elemen yang memisahkan konten elemen dari tepi elemen itu sendiri (border). Padding mempengaruhi jarak antara konten dan border, tetapi tidak memengaruhi posisi elemen relatif terhadap elemen lain.
+
+div {
+  padding: 10px; 
+}
+
+p {
+  padding-top: 5px; 
+  padding-right: 15px;
+  padding-bottom: 5px; 
+  padding-left: 10px; 
+}
+
+**Jelaskan konsep flex box dan grid layout beserta kegunaannya!**
+1. Flexbox (Flexible Box Layout Model)
+Flexbox adalah sistem layout satu dimensi yang digunakan untuk menyusun elemen di sepanjang satu sumbu, baik horizontal maupun vertikal. Flexbox dirancang untuk mengatur elemen dalam satu baris (row) atau satu kolom (column), sehingga sangat efektif dalam menyusun tata letak yang responsif dan fleksibel.
+
+Konsep Utama Flexbox:
+Flex Container: Elemen yang memiliki properti display: flex; atau display: inline-flex;. Elemen ini menjadi "container" dari elemen-elemen lain (flex items).
+Flex Items: Elemen di dalam flex container yang secara otomatis mengikuti aturan flexbox.
+
+Kegunaan Flexbox:
+- Ideal untuk menyusun elemen-elemen dalam satu dimensi (satu baris atau kolom).
+- Sangat berguna untuk tata letak responsif yang sederhana seperti menata navigasi, tombol, atau grid yang tidak terlalu kompleks.
+- Mudah digunakan untuk membuat elemen sebaris yang saling menyesuaikan ukurannya.
+
+
+2. Grid Layout (CSS Grid Layout)
+Grid Layout adalah sistem layout dua dimensi yang memungkinkan kita menyusun elemen baik dalam baris (row) maupun kolom (column) secara bersamaan. Grid memberikan kontrol penuh atas tata letak, memungkinkan desain yang lebih kompleks dibandingkan dengan flexbox.
+
+Konsep Utama Grid Layout:
+- Grid Container: Elemen yang memiliki properti display: grid; atau display: inline-grid;. Elemen ini menjadi "container" yang memiliki grid.
+- Grid Items: Elemen di dalam grid container yang ditempatkan di dalam grid yang didefinisikan oleh kolom dan baris.
+
+Kegunaan Grid Layout:
+- Ideal untuk tata letak yang lebih kompleks dan dua dimensi, di mana elemen diatur dalam baris dan kolom.
+- Sangat berguna untuk menyusun grid yang presisi, seperti galeri gambar, dashboard, atau layout halaman penuh yang kompleks.
+- Memberikan kontrol yang lebih terperinci dibandingkan flexbox, termasuk kemampuan untuk menempatkan item di area grid tertentu.
