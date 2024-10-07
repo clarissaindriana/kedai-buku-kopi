@@ -448,3 +448,123 @@ Kegunaan Grid Layout:
 - Ideal untuk tata letak yang lebih kompleks dan dua dimensi, di mana elemen diatur dalam baris dan kolom.
 - Sangat berguna untuk menyusun grid yang presisi, seperti galeri gambar, dashboard, atau layout halaman penuh yang kompleks.
 - Memberikan kontrol yang lebih terperinci dibandingkan flexbox, termasuk kemampuan untuk menempatkan item di area grid tertentu.
+
+## Tugas 6
+### Implementasi JavaScript dan AJAX
+**Menambahkan Error Message Pada Login**
+1. Untuk memudahkan proses login pada aplikasi, berikan conditional pada view login_user
+
+messages.error(request, msg) akan "menempelkan" pesan error kepada request yang mengirimkan permintaan login, yang nantinya akan ditampilkan di templat login.html
+
+**Membuat Fungsi untuk Menambahkan Product dengan AJAX**
+Membuat fungsi pada views untuk menambahkan product baru ke basis data dengan AJAX.
+
+1. Tambahkan kedua impor from django.views.decorators.csrf import csrf_exempt dan
+from django.views.decorators.http import require_POST pada file views.py.
+
+2. Buat fungsi baru pada views.py dengan nama add_product_entry_ajax yang menerima parameter request.
+
+name = request.POST.get(“name”) dan semacamnya digunakan untuk mengambil data yang dikirimkan pengguna melalui POST request secara manual.
+new_product = Product(…) merupakan objek Product baru yang dibuat secara manual berdasarkan data-data yang dikirimkan dari POST request.
+
+**Menambahkan Routing Untuk Fungsi add_product_entry_ajax**
+1. Buka urls.py yang ada pada subdirektori main dan impor fungsi yang sudah  dibuat tadi dan tambahkan path url ke dalam urlpatterns untuk mengakses fungsi yang sudah diimpor.
+
+**Menampilkan Data Product Entry dengan fetch() API**
+1. Pada berkas views.py hapus dua baris berikut.
+
+product_entries = Product.objects.filter(user=request.user)
+'product_entries': product_entries,
+
+Akan didapatkan objek-objek product entry dari endpoint /json, sehingga kode di atas tidak diperlukan lagi.
+
+2. Pada berkas views.py dan ubah baris pertama views untuk show_json dan show_xml seperti berikut.
+
+data = Product.objects.filter(user=request.user)
+
+3. Pada berkas main.html hapus bagian block conditional product_entries untuk menampilkan card_product ketika kosong atau tidak lalu ditambahkan potongan kode ini di tempat yang sama.
+
+div dengan id=“product_entry_cards"
+
+4. Buat block script di bagian bawah berkas main.html (sebelum {% endblock content %}) dan buatlah fungsi baru pada block script tersebut dengan nama getProductEntries.
+
+Fungsi ini menggunakan fetch() API ke data JSON secara asynchronous.
+Setelah data di-fetch, fungsi then() digunakan untuk melakukan parse pada data JSON menjadi objek JavaScript.
+
+5. Buatlah fungsi baru pada block script dengan nama refreshProductEntries yang digunakan untuk me-refresh data products secara asinkronus.
+
+- document.getElementById(“product_entry_cards") digunakan untuk mendapatkan elemen berdasarkan ID nya. Pada baris kode ini, elemen yang dituju adalah tag <div> dengan ID product_entry_cards yang sudah kamu buat pada tahapan sebelumnya.
+- innerHTML digunakan untuk mengisi child element dari elemen yang dituju. Jika innerHTML = "", maka akan mengosongkan isi child element dari elemen yang dituju.
+- className digunakan untuk mengisi class name dari elemen yang dituju.
+- productEntries.forEach((item)) digunakan untuk melakukan for each loop pada data moods yang diambil menggunakan fungsi getProductEntries(). Kemudian, htmlString kita konkatenasi dengan data moods untuk mengisi container dengan cards seperti pada tutorial sebelumnya.
+- refreshProductEntries() digunakan untuk memanggil fungsi tersebut pada setiap kali membuka halaman web.
+
+**Membuat Modal Sebagai Form untuk Menambahkan Product**
+1. Tambahkan kode form untuk mengimplementasikan modal (Tailwind) pada aplikasi. Potongan kode form diletakan di bawah div dengan id product_entry_cards yang telah ditambahkan sebelumnya.
+
+2. Agar modal dapat berfungsi, perlu ditambahkan fungsi-fungsi JavaScript berikut.
+- function showModal()
+- function hideModal()
+
+3. Tambahkan tombol baru untuk melakukan penambahan data dengan AJAX.
+
+**Menambahkan Data Product dengan AJAX**
+Modal dengan form yang telah dibuat sebelumnya belum bisa digunakan untuk menambahkan data product. Oleh karena itu, perlu dibuat fungsi JavaScript baru untuk menambahkan data berdasarkan input ke basis data secara AJAX.
+
+1. Buat fungsi baru pada block script dengan nama addProductEntry
+
+- new FormData(document.querySelector(‘#productEntryForm')) digunakan untuk membuat sebuah FormData baru yang datanya diambil dari form pada modal. Objek FormData dapat digunakan untuk mengirimkan data form tersebut ke server.
+- document.getElementById(“productEntryForm").reset() digunakan untuk mengosongkan isi field form modal setelah di-submit.
+
+2. Tambahkan sebuah event listener pada form yang ada di modal untuk menjalankan fungsi addProductEntry()
+
+**Melindungi Aplikasi dari Cross Site Scripting (XSS)**
+1. Menambahkan strip_tags untuk "Membersihkan" Data Baru dengan buka berkas views.py dan forms.py dan tambahkan impor berikut from django.utils.html import strip_tags
+
+2. Pada fungsi add_product_entry_ajax di views.py, gunakanlah fungsi strip_tags pada data name dan description dan pairing sebelum data tersebut dimasukkan ke dalam Product
+
+3. Pada class ProductEntryForm di forms.py tambahkan ketiga method berikut.
+- clean_name()
+- clean_description()
+- clean_pairing()
+
+Method clean_name dan clean_description dan clean_pairing akan dipanggil ketika melakukan form.is_valid(), sehingga dengan menambahkan kedua method tersebut sudah melakukan validasi untuk fungsi create_product dan edit_product.
+
+**Membersihkan Data dengan DOMPurify**
+Bisa menggunakan library JavaScript DOMPurify untuk melakukan pembersihan di frontend.
+
+1. Buka berkas main.html dan tambahkan potongan kode berikut pada block meta dalam block script
+
+src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js">
+
+2. Setelah itu, pada fungsi refreshProductEntries yang telah ditambahkan sebelumnya, tambahkan potongan kode berikut.
+
+const name = DOMPurify.sanitize(item.fields.name);
+const description = DOMPurify.sanitize(item.fields.description);
+const pairing = DOMPurify.sanitize(item.fields.pairing);
+
+3. Refresh halaman utama dan jika sebelumnya memiliki data yang "kotor" seperti yang memunculkan alert box, seharusnya tidak muncul lagi.
+
+### SOAL
+**Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!**
+- Interaktivitas yang Tinggi: JavaScript memungkinkan pengembang untuk membuat halaman web yang interaktif dan responsif.
+- Pengembangan Aplikasi Sisi Klien: JavaScript berjalan di sisi klien (browser), yang berarti beban komputasi dapat didistribusikan dari server ke klien.
+- Kompatibilitas dengan Semua Browser: JavaScript didukung oleh semua browser modern
+- Dukungan untuk Pengembangan Mobile: Dengan kerangka kerja seperti React Native, JavaScript juga dapat digunakan untuk mengembangkan aplikasi mobile yang dapat berjalan di platform iOS dan Android
+
+**Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?**
+await adalah sebuah keyword dalam JavaScript yang digunakan untuk menunggu hasil dari sebuah Promise. Ketika digunakan dengan fetch(), await memastikan bahwa kode akan menunggu hingga operasi fetch selesai dan mengembalikan hasilnya sebelum melanjutkan eksekusi ke baris kode berikutnya.
+
+Jika kita tidak menggunakan await, maka fetch() akan mengembalikan sebuah Promise yang belum diselesaikan (pending). Ini berarti bahwa kode berikutnya akan dieksekusi sebelum permintaan fetch selesai, yang dapat menyebabkan masalah jika kita mencoba menggunakan hasil dari fetch() sebelum tersedia.
+
+**Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?**
+Decorator @csrf_exempt digunakan untuk mengecualikan view dari perlindungan Cross-Site Request Forgery (CSRF). 
+- API Terbuka: Jika view tersebut digunakan sebagai endpoint API publik atau untuk aplikasi yang tidak memerlukan otentikasi pengguna, Anda mungkin tidak memerlukan perlindungan CSRF.
+- Kemudahan Pengembangan: Pada tahap pengembangan, Anda mungkin ingin menonaktifkan CSRF sementara untuk mempermudah proses pengujian, terutama jika Anda belum mengkonfigurasi pengiriman token CSRF dalam AJAX request.
+- Permintaan dari Sumber Eksternal: Jika permintaan AJAX datang dari sumber eksternal yang tidak bisa menyertakan token CSRF.
+
+**Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?**
+- Menghindari Serangan: Salah satu alasan utama untuk melakukan pembersihan data di backend adalah untuk melindungi aplikasi dari berbagai serangan, seperti SQL Injection, Cross-Site Scripting (XSS), dan serangan injeksi lainnya. 
+- Konsistensi: Melakukan pembersihan data di backend memastikan bahwa semua data yang masuk ke sistem adalah konsisten dan sesuai dengan aturan yang telah ditetapkan.
+- Pusat Validasi: Dengan melakukan pembersihan di backend, kita dapat memiliki satu tempat terpusat untuk semua aturan validasi dan pembersihan data, yang membuatnya lebih mudah untuk dikelola dan diperbarui.
+
